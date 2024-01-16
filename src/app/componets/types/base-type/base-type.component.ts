@@ -14,9 +14,11 @@ export class BaseTypeComponent {
 
   onInput(e: any) {
     const outputObject: any = {};
-    //TODO Переделать на instansof Event
-    if (!!e?.target?.value) {
-      outputObject[this.field.name] = e.target.value;
+    if (e instanceof Event) {
+      let target = e.target as HTMLInputElement;
+      if (!!target.value) {
+        outputObject[this.field.name] = target.value;
+      }
     } else {
       outputObject[this.field.name] = e;
     }
