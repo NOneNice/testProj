@@ -1,0 +1,13 @@
+<p>form works!</p>
+
+<div style="display: flex; gap: 10px; flex-direction: column">
+    <ng-container  *ngFor="let field of fields">
+        <ndc-dynamic
+                [ndcDynamicComponent]="getComponent(field.dataType)"
+                [ndcDynamicInputs]="{ field: field, value: value$  }"
+                [ndcDynamicOutputs]="outputs">
+        </ndc-dynamic>
+    </ng-container>
+
+
+</div>
