@@ -1,12 +1,7 @@
-import {
-  Component,
-  Directive,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { Field } from '../../../interface/filed.interface';
 import { BehaviorSubject } from 'rxjs';
+
 @Directive()
 export class BaseTypeComponent {
   @Input() field: Field;

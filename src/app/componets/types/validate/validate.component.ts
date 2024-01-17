@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { JsonPipe, NgSwitch, NgSwitchCase } from '@angular/common';
 import { ValidateTextComponent } from './validateType/validate-text.component';
 import { ValidateNumberComponent } from './validateType/validate-number.component';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-validate',
