@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  Directive,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Field } from '../../../interface/filed.interface';
 import { BehaviorSubject } from 'rxjs';
-
-@Component({
-  selector: 'app-base-type',
-  standalone: true,
-  template: ``,
-})
+@Directive()
 export class BaseTypeComponent {
   @Input() field: Field;
   @Input() value: BehaviorSubject<Record<string, unknown>>;

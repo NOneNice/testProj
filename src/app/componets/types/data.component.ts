@@ -12,7 +12,10 @@ import { ValidateComponent } from './validate/validate.component';
       [value]="chengFormat(value.value[field.name])"
       (input)="onInput($event)"
     />
-    <app-validate [type]="field.dataType"></app-validate>
+    <app-validate
+      [type]="field.dataType"
+      [value]="value.value[field.name]"
+    ></app-validate>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ValidateComponent],

@@ -2,7 +2,7 @@
 
 <div [ngSwitch]="type" >
     <app-vaildate-text *ngSwitchCase="'text'" [value]="String(value)"></app-vaildate-text>
-
+    <app-validate-number *ngSwitchCase="'number'" [value]="value"></app-validate-number>
 
 
 </div>

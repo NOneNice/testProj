@@ -14,6 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { JsonPipe, NgIf } from '@angular/common';
+import { BaseValidatorComponent } from './validateBase';
 
 @Component({
   selector: 'app-vaildate-text',
@@ -31,57 +32,36 @@ import { JsonPipe, NgIf } from '@angular/common';
       />
       <h3>Необходималя длительность строки</h3>
       <input type="number" [formControl]="lengthenStr" min="1" />
+
+      <div>Проходит ли валидацию: {{ form.valid }}</div>
     </div>
   `,
   styles: ``,
   imports: [JsonPipe, ReactiveFormsModule, NgIf],
 })
-export class ValidateTextComponent implements OnInit, OnChanges {
-  @Input() value: string;
-
-  enableValidation = new FormControl<boolean>(false);
-  lengthenStr = new FormControl<number>(10);
+export class ValidateTextComponent extends BaseValidatorComponent {
   checkedSpecialSymbol = new FormControl<boolean>(false);
-  fb = new FormGroup([
-    this.checkedSpecialSymbol,
-    this.lengthenStr,
-    this.enableValidation,
-  ]);
 
-  ngOnInit() {
-    this.form = new FormControl<string>(this.value, this.validateText());
-    this.fb.valueChanges.subscribe(() => {
-      this.form.updateValueAndValidity();
-    });
-  }
-  form: FormControl;
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['value']) {
-      this.form?.setValue(this.value);
-    }
+  constructor() {
+    super();
+    this.fb.addControl('checkedSpecialSymbol', this.checkedSpecialSymbol);
   }
 
-  validateText(): (control: AbstractControl) => ValidationErrors | null {
+  override validateText(): (
+    control: AbstractControl,
+  ) => ValidationErrors | null {
     return (control: AbstractControl): ValidationErrors | null => {
-      const errorObj: any = {};
-      let errorMessage: string = '';
+      let errors = super.validateText()(control);
 
-      if (!this.enableValidation.value) {
-        return null;
-      }
+      if (errors === null) return null;
 
-      if (!this.lengthenStr.value || this.lengthenStr.value === 0) {
-        errorMessage = 'Значение не может быть null или 0';
-        errorObj[errorMessage] = true;
-      }
-
+      let errorMessage;
       if (
         !!this.lengthenStr.value &&
         control.value.length > this.lengthenStr.value
       ) {
         errorMessage = 'Строка слишком длинная';
-        errorObj[errorMessage] = true;
+        errors[errorMessage] = true;
       }
 
       if (
@@ -89,12 +69,10 @@ export class ValidateTextComponent implements OnInit, OnChanges {
         /[^а-яА-ЯёЁa-zA-Z\s]/.test(control.value)
       ) {
         errorMessage = 'Строка содержит специальные символы';
-        errorObj[errorMessage] = true;
+        errors[errorMessage] = true;
       }
 
-      console.log(errorObj);
-
-      return Object.keys(errorObj).length > 0 ? errorObj : null;
+      return Object.keys(errors).length > 0 ? errors : null;
     };
   }
 }
