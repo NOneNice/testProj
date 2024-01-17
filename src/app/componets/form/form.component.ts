@@ -32,6 +32,8 @@ export class FormComponent {
     return this.getComponentsByTypes[type];
   }
 
+  creatValidate(type: string) {}
+
   outputs = {
     outPut: (type: any) => {
       this.value$.next({ ...this.value$.value, ...type });

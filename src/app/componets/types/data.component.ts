@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseTypeComponent } from './base-type/base-type.component';
+import { ValidateComponent } from './validate/validate.component';
 
 @Component({
   selector: 'app-data',
@@ -11,13 +12,14 @@ import { BaseTypeComponent } from './base-type/base-type.component';
       [value]="chengFormat(value.value[field.name])"
       (input)="onInput($event)"
     />
+    <app-validate [type]="field.dataType"></app-validate>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ValidateComponent],
 })
 export class DataComponent extends BaseTypeComponent {
   chengFormat(date: any): string {
     const newDate = new Date(date).toISOString().split('T')[0];
-    console.log(newDate);
     return newDate;
   }
 }

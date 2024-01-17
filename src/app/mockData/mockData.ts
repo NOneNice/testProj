@@ -7,6 +7,11 @@ export const mockDataFiled: Field[] = [
     title: 'Имя',
   },
   {
+    name: 'secondName',
+    dataType: 'text',
+    title: 'Фамилия',
+  },
+  {
     name: 'age',
     title: 'Возраст',
     dataType: 'number',
@@ -25,6 +30,7 @@ export const mockDataFiled: Field[] = [
 
 export const mockDataValue: Record<string, unknown> = {
   name: 'Алексей',
+  secondName: 'Бобров',
   age: 27,
   registry: new Date(),
   admin: true,
